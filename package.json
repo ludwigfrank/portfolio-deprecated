@@ -14,7 +14,9 @@
     "next": "^3.0.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "styled-components": "^2.1.0"
+    "slate": "^0.21.2",
+    "styled-components": "^2.1.0",
+    "webpack-bundle-analyzer": "^2.9.0"
   },
   "license": "ISC",
   "devDependencies": {
