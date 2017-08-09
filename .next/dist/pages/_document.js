@@ -36,6 +36,9 @@ var _styledComponents = require('styled-components');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var _jsxFileName = '/Users/ludwigfrank/Documents/Development/Apps/portfolio/pages/_document.js?entry';
+
+
 var MyDocument = function (_Document) {
   (0, _inherits3.default)(MyDocument, _Document);
 
@@ -49,9 +52,43 @@ var MyDocument = function (_Document) {
     key: 'render',
     value: function render() {
       var sheet = new _styledComponents.ServerStyleSheet();
-      var main = sheet.collectStyles(_react2.default.createElement(_document.Main, null));
+      var main = sheet.collectStyles(_react2.default.createElement(_document.Main, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 7
+        }
+      }));
       var styleTags = sheet.getStyleElement();
-      return _react2.default.createElement('html', null, _react2.default.createElement(_document.Head, null, _react2.default.createElement('title', null, 'My page'), styleTags), _react2.default.createElement('body', null, _react2.default.createElement('div', { className: 'root' }, main), _react2.default.createElement(_document.NextScript, null)));
+      return _react2.default.createElement('html', {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 10
+        }
+      }, _react2.default.createElement(_document.Head, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 11
+        }
+      }, _react2.default.createElement('title', {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 12
+        }
+      }, 'My page'), styleTags), _react2.default.createElement('body', {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 15
+        }
+      }, _react2.default.createElement('div', { className: 'root', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 16
+        }
+      }, main), _react2.default.createElement(_document.NextScript, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 19
+        }
+      })));
     }
   }]);
 

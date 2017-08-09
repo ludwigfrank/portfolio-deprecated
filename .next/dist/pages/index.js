@@ -40,6 +40,9 @@ var _state4 = _interopRequireDefault(_state3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var _jsxFileName = '/Users/ludwigfrank/Documents/Development/Apps/portfolio/pages/index.js?entry';
+
+
 /**
  * Define a schema.
  *
@@ -49,31 +52,76 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var schema = {
   nodes: {
     'block-quote': function blockQuote(props) {
-      return _react2.default.createElement('blockquote', null, props.children);
+      return _react2.default.createElement('blockquote', {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 14
+        }
+      }, props.children);
     },
     'bulleted-list': function bulletedList(props) {
-      return _react2.default.createElement('ul', null, props.children);
+      return _react2.default.createElement('ul', {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 15
+        }
+      }, props.children);
     },
     'heading-one': function headingOne(props) {
-      return _react2.default.createElement('h1', null, props.children);
+      return _react2.default.createElement('h1', {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 16
+        }
+      }, props.children);
     },
     'heading-two': function headingTwo(props) {
-      return _react2.default.createElement('h2', null, props.children);
+      return _react2.default.createElement('h2', {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 17
+        }
+      }, props.children);
     },
     'heading-three': function headingThree(props) {
-      return _react2.default.createElement('h3', null, props.children);
+      return _react2.default.createElement('h3', {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 18
+        }
+      }, props.children);
     },
     'heading-four': function headingFour(props) {
-      return _react2.default.createElement('h4', null, props.children);
+      return _react2.default.createElement('h4', {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 19
+        }
+      }, props.children);
     },
     'heading-five': function headingFive(props) {
-      return _react2.default.createElement('h5', null, props.children);
+      return _react2.default.createElement('h5', {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 20
+        }
+      }, props.children);
     },
     'heading-six': function headingSix(props) {
-      return _react2.default.createElement('h6', null, props.children);
+      return _react2.default.createElement('h6', {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 21
+        }
+      }, props.children);
     },
     'list-item': function listItem(props) {
-      return _react2.default.createElement('li', null, props.children);
+      return _react2.default.createElement('li', {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 22
+        }
+      }, props.children);
     }
 
     /**
@@ -134,7 +182,6 @@ var MainEditor = function (_Component) {
       switch (chars) {
         case '*':
         case '-':
-        case '+':
           return 'list-item';
         case '>':
           return 'block-quote';
@@ -156,13 +203,16 @@ var MainEditor = function (_Component) {
     }, _this.onChange = function (state) {
       _this.setState({ state: state });
     }, _this.onKeyDown = function (e, data, state) {
-      switch (data.key) {
-        case 'space':
-          return _this.onSpace(e, state);
-        case 'backspace':
-          return _this.onBackspace(e, state);
-        case 'enter':
-          return _this.onEnter(e, state);
+      console.log(data);
+      switch (data.code) {
+        case '32':
+          return _this.onSpace(e, state); // Space
+        case '8':
+          return _this.onBackspace(e, state); // Backspace
+        case '13':
+          return _this.onEnter(e, state); // Enter
+        case '64':
+          return console.log('e'); // @
       }
     }, _this.onSpace = function (e, state) {
       if (state.isExpanded) return;
@@ -234,11 +284,19 @@ var MainEditor = function (_Component) {
      */
 
     value: function render() {
-      return _react2.default.createElement('div', { className: 'editor' }, _react2.default.createElement(_slate.Editor, {
+      return _react2.default.createElement('div', { className: 'editor', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 95
+        }
+      }, _react2.default.createElement(_slate.Editor, {
         schema: schema,
         state: this.state.state,
         onChange: this.onChange,
-        onKeyDown: this.onKeyDown
+        onKeyDown: this.onKeyDown,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 96
+        }
       }));
     }
 

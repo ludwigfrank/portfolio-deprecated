@@ -71,8 +71,7 @@ class MainEditor extends Component {
   getType = (chars) => {
     switch (chars) {
       case '*':
-      case '-':
-      case '+': return 'list-item'
+      case '-': return 'list-item'
       case '>': return 'block-quote'
       case '#': return 'heading-one'
       case '##': return 'heading-two'
@@ -129,10 +128,12 @@ class MainEditor extends Component {
    */
 
     onKeyDown = (e, data, state) => {
-        switch (data.key) {
-            case 'space': return this.onSpace(e, state)
-            case 'backspace': return this.onBackspace(e, state)
-            case 'enter': return this.onEnter(e, state)
+        console.log(data)
+        switch (data.code) {
+            case '32': return this.onSpace(e, state) // Space
+            case '8': return this.onBackspace(e, state) // Backspace
+            case '13': return this.onEnter(e, state) // Enter
+            case '64': return console.log('e') // @
         }
     }
 
