@@ -6,17 +6,7 @@
             "nodes": [
                 {
                     "kind": "text",
-                    "text": "The editor gives you full control over the logic you can add. For example, it's fairly common to want to add markdown-like shortcuts to editors. So that, when you start a line with \"> \" you get a blockquote that looks like this:"
-                }
-            ]
-        },
-        {
-            "kind": "block",
-            "type": "block-quote",
-            "nodes": [
-                {
-                    "kind": "text",
-                    "text": "A wise quote."
+                    "text": "First Paragraph"
                 }
             ]
         },
@@ -26,7 +16,7 @@
             "nodes": [
                 {
                     "kind": "text",
-                    "text": "Order when you start a line with \"## \" you get a level-two heading, like this:"
+                    "text": "LCD screens are uniquely modern in style, and the liquid crystals that make them work have allowed humanity to create slimmer, more portable technology than we’ve ever had access to before. From your wrist watch to your laptop, a lot of the on the go electronics that we tote from place to place are only possible because of their thin, light LCD display screens. Liquid crystal display (LCD) technology still has some stumbling blocks in its path that can make it unreliable at times, but on the whole the invention of the LCD screen has allowed great leaps forward in global technological progress."
                 }
             ]
         },

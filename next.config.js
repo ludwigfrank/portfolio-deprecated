@@ -19,7 +19,14 @@ module.exports = {
 
     config.resolve.alias = {
         '~': './'
-    }
+    },
+
+    config.rules.push(
+        {
+            test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
+		    loader: 'file-loader'
+        }
+    )
 
     return config
   }
