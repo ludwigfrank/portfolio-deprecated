@@ -1,4 +1,13 @@
 import { Block } from 'slate'
+import styled from 'styled-components'
+
+const Paragraph = styled.span`
+    font-family: Maison Neue;
+    font-size: 1.04em;
+    color: #1B2733;
+    letter-spacing: 0;
+    line-height: 1.9em;
+`
 
 const defaultBlock = {
     type: 'paragraph',

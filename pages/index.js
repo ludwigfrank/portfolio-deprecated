@@ -69,7 +69,10 @@ const schema = {
         'heading-five': props => <h5>{props.children}</h5>,
         'heading-six': props => <h6>{props.children}</h6>,
         'list-item': props => <li>{props.children}</li>,
-        // 'paragraph': props => <Paragraph>{props.children}</Paragraph>
+        'paragraph': props =>
+            <div>
+                <Paragraph>{props.children}</Paragraph>
+            </div>
     },
     rules,
     marks: {
@@ -217,21 +220,15 @@ class MainEditor extends Component {
      */
 
     onBackspace = (e, state) => {
-        if (state.isExpanded) return
-        if (state.startOffset != 0) return
-        const { startBlock } = state
-
-        if (startBlock.type == 'paragraph') return
-        e.preventDefault()
-
-        const transform = state
-            .transform()
-            .setBlock('paragraph')
-
-        if (startBlock.type == 'list-item') transform.unwrapBlock('bulleted-list')
-
-        state = transform.apply()
-        return state
+        const { startBlock, startOffset, endOffset, isExpanded } = state
+        if (isExpanded) return
+        if (startBlock.type == 'list-item') {
+            console.log('hello')
+            return state.transform().setBlock('paragraph').unwrapBlock('bulleted-list').apply()
+        }
+        if (startBlock.type == 'heading-two' ) {
+            return state.transform().deleteBackward(1).setBlock('heading-two').apply()
+        }
     }
 
     /**
@@ -245,10 +242,12 @@ class MainEditor extends Component {
 
     onEnter = (e, state) => {
         // console.log('onenter')
-        if (state.isExpanded) return
-        const { startBlock, startOffset, endOffset } = state
-        if (startOffset == 0 && startBlock.length == 0) return this.onBackspace(e, state)
-        if (endOffset != startBlock.length) return
+        // if (state.isExpanded) return
+        const { startBlock, startOffset, endOffset, blocks } = state
+        // if (startOffset == 0 && startBlock.length == 0) return this.onBackspace(e, state)
+        // if (startOffset == 0) return
+        // If the cursor is inside a block of text, return
+        // if (endOffset != startBlock.length) { return }
 
         if (
             startBlock.type != 'heading-one' &&
@@ -287,14 +286,14 @@ class MainEditor extends Component {
 
     render() {
         return (
-        <EditorWrapper>
-            <Editor
-                schema={schema}
-                state={this.state.state}
-                onChange={this.onChange}
-                onKeyDown={this.onKeyDown}
-            />
-        </EditorWrapper>
+            <EditorWrapper>
+                <Editor
+                    schema={schema}
+                    state={this.state.state}
+                    onChange={this.onChange}
+                    onKeyDown={this.onKeyDown}
+                />
+            </EditorWrapper>
         )
     }
 }

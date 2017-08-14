@@ -34,9 +34,9 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _slate = require('slate');
 
-var _state3 = require('../static/state.json');
+var _state2 = require('../static/state.json');
 
-var _state4 = _interopRequireDefault(_state3);
+var _state3 = _interopRequireDefault(_state2);
 
 var _rules = require('../editor/rules');
 
@@ -49,27 +49,27 @@ var _jsxFileName = '/Users/ludwigfrank/Documents/Development/Apps/portfolio/page
 
 var EditorWrapper = _styledComponents2.default.div.withConfig({
     displayName: 'pages__EditorWrapper',
-    componentId: 's1qmh5q8-0'
+    componentId: 's4uevj7-0'
 })(['max-width:660px;margin:0 auto;padding:0 24px;']);
 
 var H1 = _styledComponents2.default.h1.withConfig({
     displayName: 'pages__H1',
-    componentId: 's1qmh5q8-1'
+    componentId: 's4uevj7-1'
 })(['font-family:MetaSerifPro;font-size:32px;color:#121023;letter-spacing:0;line-height:28px;font-weight:normal;margin-bottom:1.5em;margin-top:4em;']);
 
 var H2 = _styledComponents2.default.h2.withConfig({
     displayName: 'pages__H2',
-    componentId: 's1qmh5q8-2'
+    componentId: 's4uevj7-2'
 })(['font-family:MetaSerifPro;font-size:26px;color:#121023;letter-spacing:0;line-height:28px;font-weight:normal;margin-bottom:0.8em;margin-top:1.5em;']);
 
 var Paragraph = _styledComponents2.default.span.withConfig({
     displayName: 'pages__Paragraph',
-    componentId: 's1qmh5q8-3'
+    componentId: 's4uevj7-3'
 })(['font-family:Maison Neue;font-size:1.04em;color:#1B2733;letter-spacing:0;line-height:1.9em;']);
 
 var Blockquote = _styledComponents2.default.blockquote.withConfig({
     displayName: 'pages__Blockquote',
-    componentId: 's1qmh5q8-4'
+    componentId: 's4uevj7-4'
 })(['font-family:Maison Neue;font-size:1.04em;font-style:italic;color:#1B2733;letter-spacing:0.5px;line-height:1.9em;border-left:4px solid #E6E8EB;padding-left:1.5em;margin:1em 0;']);
 
 /**
@@ -151,8 +151,20 @@ var schema = {
                     lineNumber: 71
                 }
             }, props.children);
+        },
+        'paragraph': function paragraph(props) {
+            return _react2.default.createElement('div', {
+                __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 73
+                }
+            }, _react2.default.createElement(Paragraph, {
+                __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 74
+                }
+            }, props.children));
         }
-        // 'paragraph': props => <Paragraph>{props.children}</Paragraph>
     },
     rules: _rules2.default,
     marks: {
@@ -160,7 +172,7 @@ var schema = {
             return _react2.default.createElement('strong', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 76
+                    lineNumber: 79
                 }
             }, props.children);
         },
@@ -168,7 +180,7 @@ var schema = {
             return _react2.default.createElement('em', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 77
+                    lineNumber: 80
                 }
             }, props.children);
         },
@@ -176,7 +188,7 @@ var schema = {
             return _react2.default.createElement('code', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 78
+                    lineNumber: 81
                 }
             }, props.children);
         }
@@ -226,7 +238,7 @@ var MainEditor = function (_Component) {
 
         return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = MainEditor.__proto__ || (0, _getPrototypeOf2.default)(MainEditor)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
             // state: Raw.deserialize(initialState, { terse: true })
-            state: parseValue(_state4.default)
+            state: parseValue(_state3.default)
 
             /**
              * Get the block type for a series of auto-markdown shortcut `chars`.
@@ -295,29 +307,30 @@ var MainEditor = function (_Component) {
 
             return state;
         }, _this.onBackspace = function (e, state) {
-            if (state.isExpanded) return;
-            if (state.startOffset != 0) return;
-            var _state2 = state,
-                startBlock = _state2.startBlock;
-
-            if (startBlock.type == 'paragraph') return;
-            e.preventDefault();
-
-            var transform = state.transform().setBlock('paragraph');
-
-            if (startBlock.type == 'list-item') transform.unwrapBlock('bulleted-list');
-
-            state = transform.apply();
-            return state;
-        }, _this.onEnter = function (e, state) {
-            // console.log('onenter')
-            if (state.isExpanded) return;
             var startBlock = state.startBlock,
                 startOffset = state.startOffset,
-                endOffset = state.endOffset;
+                endOffset = state.endOffset,
+                isExpanded = state.isExpanded;
 
-            if (startOffset == 0 && startBlock.length == 0) return _this.onBackspace(e, state);
-            if (endOffset != startBlock.length) return;
+            if (isExpanded) return;
+            if (startBlock.type == 'list-item') {
+                console.log('hello');
+                return state.transform().setBlock('paragraph').unwrapBlock('bulleted-list').apply();
+            }
+            if (startBlock.type == 'heading-two') {
+                return state.transform().deleteBackward(1).setBlock('heading-two').apply();
+            }
+        }, _this.onEnter = function (e, state) {
+            // console.log('onenter')
+            // if (state.isExpanded) return
+            var startBlock = state.startBlock,
+                startOffset = state.startOffset,
+                endOffset = state.endOffset,
+                blocks = state.blocks;
+            // if (startOffset == 0 && startBlock.length == 0) return this.onBackspace(e, state)
+            // if (startOffset == 0) return
+            // If the cursor is inside a block of text, return
+            // if (endOffset != startBlock.length) { return }
 
             if (startBlock.type != 'heading-one' && startBlock.type != 'heading-two' && startBlock.type != 'heading-three' && startBlock.type != 'heading-four' && startBlock.type != 'heading-five' && startBlock.type != 'heading-six' && startBlock.type != 'block-quote') {
                 return;
@@ -395,7 +408,7 @@ var MainEditor = function (_Component) {
             return _react2.default.createElement(EditorWrapper, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 290
+                    lineNumber: 289
                 }
             }, _react2.default.createElement(_slate.Editor, {
                 schema: schema,
@@ -404,7 +417,7 @@ var MainEditor = function (_Component) {
                 onKeyDown: this.onKeyDown,
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 291
+                    lineNumber: 290
                 }
             }));
         }
