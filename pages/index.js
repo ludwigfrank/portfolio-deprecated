@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import { Editor, Raw, Block, setKeyGenerator, Plain } from 'slate'
 import initialState from '../static/state.json'
 import rules from '../editor/rules'
+import debug from 'debug'
+
+import PluginList from '../editor/plugins/list'
 
 const EditorWrapper = styled.div`
     max-width: 660px;
@@ -11,8 +14,8 @@ const EditorWrapper = styled.div`
 `
 
 const H1 = styled.h1`
-    font-family: MetaSerifPro;
-    font-size: 32px;
+    font-family: KievitSlabPro;
+    font-size: 2.6em;
     color: #121023;
     letter-spacing: 0;
     line-height: 28px;
@@ -22,8 +25,8 @@ const H1 = styled.h1`
 `
 
 const H2 = styled.h2`
-    font-family: MetaSerifPro;
-    font-size: 26px;
+    font-family: KievitSlabPro;
+    font-size: 2.2em;
     color: #121023;
     letter-spacing: 0;
     line-height: 28px;
@@ -34,24 +37,28 @@ const H2 = styled.h2`
 
 const Paragraph = styled.span`
     font-family: Maison Neue;
-    font-size: 1.04em;
+    font-size: 1.12em;
     color: #1B2733;
     letter-spacing: 0;
     line-height: 1.9em;
 `
 
 const Blockquote = styled.blockquote`
-    font-family: Maison Neue;
-    font-size: 1.04em;
+    font-family: KievitSlabPro-LightItalic;
+    font-size: 1.2em;
     font-style: italic;
     color: #1B2733;
     letter-spacing: 0.5px;
     line-height: 1.9em;
     border-left: 4px solid #E6E8EB;
-    padding-left: 1.5em;
-    margin: 1em 0;
+    padding: 0.5em 1.5em; 
+    margin: 2em 0;
 `
 
+const plugin = PluginList()
+const plugins = [
+    plugin
+]
 /**
  * Define a schema.
  *
@@ -61,16 +68,17 @@ const Blockquote = styled.blockquote`
 const schema = {
     nodes: {
         'block-quote': props => <Blockquote>{props.children}</Blockquote>,
-        'bulleted-list': props => <ul>{props.children}</ul>,
         'heading-one': props => <H1>{props.children}</H1>,
-        'heading-two': props => <H2>{props.children}</H2>,
+        'heading-two': props => 
+            <div data-key={props.attributes['data-key']}>
+                <H2>{props.children}</H2>
+            </div>,
         'heading-three': props => <h3>{props.children}</h3>,
         'heading-four': props => <h4>{props.children}</h4>,
         'heading-five': props => <h5>{props.children}</h5>,
         'heading-six': props => <h6>{props.children}</h6>,
-        'list-item': props => <li>{props.children}</li>,
         'paragraph': props =>
-            <div>
+            <div data-key={props.attributes['data-key']}>
                 <Paragraph>{props.children}</Paragraph>
             </div>
     },
@@ -220,15 +228,34 @@ class MainEditor extends Component {
      */
 
     onBackspace = (e, state) => {
-        const { startBlock, startOffset, endOffset, isExpanded } = state
-        if (isExpanded) return
-        if (startBlock.type == 'list-item') {
-            console.log('hello')
-            return state.transform().setBlock('paragraph').unwrapBlock('bulleted-list').apply()
+        if (state.isExpanded) return
+        if (state.startOffset != 0) return
+        const { startBlock, document, startKey, startOffset } = state
+
+        if (startBlock.type == 'paragraph') return
+        
+        e.preventDefault()
+        const transform = state
+            .transform()
+
+
+        if (startBlock.type == 'block-quote') {
+            return
         }
-        if (startBlock.type == 'heading-two' ) {
-            return state.transform().deleteBackward(1).setBlock('heading-two').apply()
+       
+        // If the previous block is a paragraph and empty delete it
+        if (document.getPreviousBlock(startKey).type == 'paragraph' &&
+            startBlock.type === 'heading-two' &&
+            document.getPreviousBlock(startKey).isEmpty == true) {
+            transform
+                .deleteBackward(1)
+                .setBlock(startBlock.type)
+        } else {
+            return
         }
+
+        state = transform.apply()
+        return state
     }
 
     /**
@@ -242,13 +269,27 @@ class MainEditor extends Component {
 
     onEnter = (e, state) => {
         // console.log('onenter')
-        // if (state.isExpanded) return
-        const { startBlock, startOffset, endOffset, blocks } = state
-        // if (startOffset == 0 && startBlock.length == 0) return this.onBackspace(e, state)
-        // if (startOffset == 0) return
-        // If the cursor is inside a block of text, return
-        // if (endOffset != startBlock.length) { return }
+        if (state.isExpanded) return
+        const { startBlock, startOffset, endOffset, blocks, startKey, document } = state
+    
+        if (endOffset != startBlock.length && startBlock.type != 'paragraph' && startBlock.type != 'list-item') {
+            // If at the start of the selection, add a paragraph block and move the cursor to the current block.
+            if (endOffset === 0) {
+                e.preventDefault()
+                return state.transform()
+                    .insertBlock('paragraph')
+                    .collapseToStartOf(document.getClosestBlock(startKey))
+                    .apply()
+            } else {
+                return state
+                    .transform()
+                    .splitBlock()
+                    .setBlock('paragraph')
+                    .apply()
+            }
+        }
 
+        // return to default Enter behavior
         if (
             startBlock.type != 'heading-one' &&
             startBlock.type != 'heading-two' &&
@@ -259,9 +300,9 @@ class MainEditor extends Component {
             startBlock.type != 'block-quote'
         ) {
             return
-        }
+        } 
 
-        e.preventDefault()
+        console.log('default')
         return state
             .transform()
             .splitBlock()
@@ -288,6 +329,7 @@ class MainEditor extends Component {
         return (
             <EditorWrapper>
                 <Editor
+                    plugins={plugins}
                     schema={schema}
                     state={this.state.state}
                     onChange={this.onChange}

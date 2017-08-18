@@ -35,21 +35,49 @@ injectGlobal`
 
     @font-face {
         font-family: 'Maison Neue';
-        src: url('static/fonts/subset-MaisonNeue-Book.woff2') format('woff2');
+        src: url('static/fonts/MaisonNeue-Book.woff2') format('woff2');
         font-weight: normal;
         font-style: normal;
     }
 
     @font-face {
         font-family: 'Maison Neue';
-        src: url('static/fonts/subset-MaisonNeue-BookItalic.woff2') format('woff2');
+        src: url('static/fonts/MaisonNeue-BookItalic.woff2) format('woff2');
         font-weight: normal;
         font-style: italic;
     }
 
     @font-face {
+        font-family: 'Maison Neue';
+        src: url('static/fonts/MaisonNeue-Demi.woff2') format('woff2');
+        font-weight: 600;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Maison Neue';
+        src: url('static/fonts/MaisonNeue-Bold.woff2') format('woff2');
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    @font-face {
         font-family: 'MetaSerifPro';
         src: url('static/fonts/subset-MetaSerifPro-Light.woff2') format('woff2');
+        font-weight: 300;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'KievitSlabPro-LightItalic';
+        src: url('static/fonts/KievitSlabPro-LightItalic.woff2') format('woff2');
+        font-weight: 300;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: 'KievitSlabPro';
+        src: url('static/fonts/KievitSlabPro-Light.woff2') format('woff2');
         font-weight: 300;
         font-style: normal;
     }
