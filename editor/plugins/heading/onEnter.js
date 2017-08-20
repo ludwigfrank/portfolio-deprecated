@@ -1,22 +1,27 @@
-const onEnter = (e, state, data, opts) => {
+export const onEnter = (e, state, data, opts) => {
     if (state.isExpanded) return
-    console.log('what')
+
     const {
         startBlock,
-        startOffset
+        startOffset,
+        endOffset,
+        startKey,
+        document
     } = state
 
-    if (startBlock.type != opts.typeItem) return
+    if (!opts.types.includes(startBlock.type)) return
 
-    e.preventDefault()
-
-    if (startOffset == 0 && startBlock.length == 0) {
+    if (endOffset === 0) {
+        e.preventDefault()
+        return state.transform()
+            .insertBlock('paragraph')
+            .collapseToStartOf(document.getClosestBlock(startKey))
+            .apply()
+    } else {
         return state
             .transform()
+            .splitBlock()
             .setBlock('paragraph')
-            .unwrapBlock('bulleted-list')
             .apply()
     }
 }
-
-export { onEnter }

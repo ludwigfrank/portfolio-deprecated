@@ -38,6 +38,8 @@ var _document2 = _interopRequireDefault(_document);
 
 var _styledComponents = require('styled-components');
 
+var _Grid = require('../components/Grid');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _jsxFileName = '/Users/ludwigfrank/Documents/Development/Apps/portfolio/pages/_document.js?entry';
@@ -60,38 +62,38 @@ var MyDocument = function (_Document) {
       var main = sheet.collectStyles(_react2.default.createElement(_document.Main, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 8
+          lineNumber: 9
         }
       }));
       var styleTags = sheet.getStyleElement();
       return _react2.default.createElement('html', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 11
+          lineNumber: 12
         }
       }, _react2.default.createElement(_document.Head, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 12
+          lineNumber: 13
         }
       }, _react2.default.createElement('title', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 13
+          lineNumber: 14
         }
       }, 'My page'), styleTags), _react2.default.createElement('body', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 16
+          lineNumber: 17
         }
       }, _react2.default.createElement('div', { className: 'root', __source: {
           fileName: _jsxFileName,
-          lineNumber: 17
+          lineNumber: 18
         }
       }, main), _react2.default.createElement(_document.NextScript, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 20
+          lineNumber: 21
         }
       })));
     }

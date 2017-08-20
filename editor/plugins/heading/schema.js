@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Box } from '../../../components/Grid'
 
 const H1 = styled.h1`
     font-family: KievitSlabPro;
@@ -36,16 +37,16 @@ const H3 = styled.h3`
 export const schema = {
     nodes: {
         'heading-one': props => 
-            <div data-key={props.attributes['data-key']}>
+            <Box fluid={[12, 12, 12, 12]} data-key={props.attributes['data-key']}>
                 <H1>{props.children}</H1>
-            </div>,
+            </Box>,
         'heading-two': props => 
-            <div data-key={props.attributes['data-key']}>
+            <Box fluid={[12, 12, 12, 12]} data-key={props.attributes['data-key']}>
                 <H2>{props.children}</H2>
-            </div>,
+            </Box>,
         'heading-three': props => 
-            <div data-key={props.attributes['data-key']}>
+            <Box fluid={[12, 12, 12, 12]} data-key={props.attributes['data-key']}>
                 <H3>{props.children}</H3>
-            </div>,
+            </Box>,
     },
 }

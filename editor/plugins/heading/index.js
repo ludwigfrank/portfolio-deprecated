@@ -7,7 +7,7 @@ import { onBackspace } from './onBackspace'
 import Options from './options'
 
 
-const PluginList = (opts = {}) => {
+const PluginHeading = (opts = {}) => {
     
     opts = new Options(opts)
 
@@ -19,11 +19,10 @@ const PluginList = (opts = {}) => {
         if (data.key === 'backspace') return onBackspace(...args)
     }
 
-
     return {
         onKeyDown,
         schema
     }
 }
 
-export default PluginList
+export default PluginHeading

@@ -1,6 +1,6 @@
-const onEnter = (e, state, data, opts) => {
+export const onEnter = (e, state, data, opts) => {
     if (state.isExpanded) return
-    console.log('what')
+    
     const {
         startBlock,
         startOffset
@@ -18,5 +18,3 @@ const onEnter = (e, state, data, opts) => {
             .apply()
     }
 }
-
-export { onEnter }

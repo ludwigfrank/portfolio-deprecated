@@ -1,6 +1,6 @@
 import { getType } from '../utils'
 
-const onSpace = (e, state, data, opts) => {
+export const onSpace = (e, state, data, opts) => {
     if (state.isExpanded) return
 
     const {
@@ -8,7 +8,7 @@ const onSpace = (e, state, data, opts) => {
         startOffset
     } = state
 
-    if (getType(startBlock, startOffset) !== opts.typeItem) return
+    if (getType(startBlock, startOffset) != opts.typeItem) return
 
     e.preventDefault()
 
@@ -24,5 +24,3 @@ const onSpace = (e, state, data, opts) => {
 
     return state
 }
-
-export default onSpace

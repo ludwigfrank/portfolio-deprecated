@@ -34,9 +34,9 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _slate = require('slate');
 
-var _state3 = require('../static/state.json');
+var _state = require('../static/state.json');
 
-var _state4 = _interopRequireDefault(_state3);
+var _state2 = _interopRequireDefault(_state);
 
 var _rules = require('../editor/rules');
 
@@ -50,6 +50,16 @@ var _list = require('../editor/plugins/list');
 
 var _list2 = _interopRequireDefault(_list);
 
+var _heading = require('../editor/plugins/heading');
+
+var _heading2 = _interopRequireDefault(_heading);
+
+var _Image = require('../components/Image');
+
+var _Image2 = _interopRequireDefault(_Image);
+
+var _Grid = require('../components/Grid');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _jsxFileName = '/Users/ludwigfrank/Documents/Development/Apps/portfolio/pages/index.js?entry';
@@ -57,31 +67,38 @@ var _jsxFileName = '/Users/ludwigfrank/Documents/Development/Apps/portfolio/page
 
 var EditorWrapper = _styledComponents2.default.div.withConfig({
     displayName: 'pages__EditorWrapper',
-    componentId: 'pvbqv7-0'
+    componentId: 's1nbay9k-0'
 })(['max-width:660px;margin:0 auto;padding:0 24px;']);
 
 var H1 = _styledComponents2.default.h1.withConfig({
     displayName: 'pages__H1',
-    componentId: 'pvbqv7-1'
+    componentId: 's1nbay9k-1'
 })(['font-family:KievitSlabPro;font-size:2.6em;color:#121023;letter-spacing:0;line-height:28px;font-weight:normal;margin-bottom:1.5em;margin-top:4em;']);
 
 var H2 = _styledComponents2.default.h2.withConfig({
     displayName: 'pages__H2',
-    componentId: 'pvbqv7-2'
+    componentId: 's1nbay9k-2'
 })(['font-family:KievitSlabPro;font-size:2.2em;color:#121023;letter-spacing:0;line-height:28px;font-weight:normal;margin-bottom:0.8em;margin-top:1.5em;']);
 
 var Paragraph = _styledComponents2.default.span.withConfig({
     displayName: 'pages__Paragraph',
-    componentId: 'pvbqv7-3'
+    componentId: 's1nbay9k-3'
 })(['font-family:Maison Neue;font-size:1.12em;color:#1B2733;letter-spacing:0;line-height:1.9em;']);
 
 var Blockquote = _styledComponents2.default.blockquote.withConfig({
     displayName: 'pages__Blockquote',
-    componentId: 'pvbqv7-4'
+    componentId: 's1nbay9k-4'
 })(['font-family:KievitSlabPro-LightItalic;font-size:1.2em;font-style:italic;color:#1B2733;letter-spacing:0.5px;line-height:1.9em;border-left:4px solid #E6E8EB;padding:0.5em 1.5em;margin:2em 0;']);
 
-var plugin = (0, _list2.default)();
-var plugins = [plugin];
+var pluginList = (0, _list2.default)();
+var pluginHeading = (0, _heading2.default)();
+var plugins = [pluginList, pluginHeading];
+
+var StyledEditor = (0, _styledComponents2.default)(_slate.Editor).withConfig({
+    displayName: 'pages__StyledEditor',
+    componentId: 's1nbay9k-5'
+})(['', ''], _Grid.WrapperCss);
+
 /**
  * Define a schema.
  *
@@ -94,71 +111,19 @@ var schema = {
             return _react2.default.createElement(Blockquote, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 70
-                }
-            }, props.children);
-        },
-        'heading-one': function headingOne(props) {
-            return _react2.default.createElement(H1, {
-                __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 71
-                }
-            }, props.children);
-        },
-        'heading-two': function headingTwo(props) {
-            return _react2.default.createElement('div', { 'data-key': props.attributes['data-key'], __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 73
-                }
-            }, _react2.default.createElement(H2, {
-                __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 74
-                }
-            }, props.children));
-        },
-        'heading-three': function headingThree(props) {
-            return _react2.default.createElement('h3', {
-                __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 76
-                }
-            }, props.children);
-        },
-        'heading-four': function headingFour(props) {
-            return _react2.default.createElement('h4', {
-                __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 77
-                }
-            }, props.children);
-        },
-        'heading-five': function headingFive(props) {
-            return _react2.default.createElement('h5', {
-                __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 78
-                }
-            }, props.children);
-        },
-        'heading-six': function headingSix(props) {
-            return _react2.default.createElement('h6', {
-                __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 79
+                    lineNumber: 83
                 }
             }, props.children);
         },
         'paragraph': function paragraph(props) {
-            return _react2.default.createElement('div', { 'data-key': props.attributes['data-key'], __source: {
+            return _react2.default.createElement(_Grid.Box, { fluid: [8, 8, 8, 8], translate: [3, 3, 3, 3], __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 81
+                    lineNumber: 85
                 }
             }, _react2.default.createElement(Paragraph, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 82
+                    lineNumber: 86
                 }
             }, props.children));
         }
@@ -169,7 +134,7 @@ var schema = {
             return _react2.default.createElement('strong', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 87
+                    lineNumber: 91
                 }
             }, props.children);
         },
@@ -177,7 +142,7 @@ var schema = {
             return _react2.default.createElement('em', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 88
+                    lineNumber: 92
                 }
             }, props.children);
         },
@@ -185,7 +150,7 @@ var schema = {
             return _react2.default.createElement('code', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 89
+                    lineNumber: 93
                 }
             }, props.children);
         }
@@ -235,7 +200,7 @@ var MainEditor = function (_Component) {
 
         return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = MainEditor.__proto__ || (0, _getPrototypeOf2.default)(MainEditor)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
             // state: Raw.deserialize(initialState, { terse: true })
-            state: parseValue(_state4.default)
+            state: parseValue(_state2.default)
 
             /**
              * Get the block type for a series of auto-markdown shortcut `chars`.
@@ -278,53 +243,16 @@ var MainEditor = function (_Component) {
                     return _this.onEnter(e, state);
             }
         }, _this.onSpace = function (e, state) {
-            if (state.isExpanded) return;
-            var _state = state,
-                startBlock = _state.startBlock,
-                startOffset = _state.startOffset;
-
-            var chars = startBlock.text.slice(0, startOffset).replace(/\s*/g, '');
-            var type = _this.getType(chars);
-
-            if (!type) return;
-
-            // As long as only one Heading at the top is allowed
-            if (type == 'heading-one') return;
-
-            e.preventDefault();
-
-            var transform = state.transform().setBlock(type);
-
-            state = transform.extendToStartOf(startBlock).delete().apply();
-
-            return state;
+            return;
         }, _this.onBackspace = function (e, state) {
             if (state.isExpanded) return;
             if (state.startOffset != 0) return;
-            var _state2 = state,
-                startBlock = _state2.startBlock,
-                document = _state2.document,
-                startKey = _state2.startKey,
-                startOffset = _state2.startOffset;
+            var startBlock = state.startBlock,
+                document = state.document,
+                startKey = state.startKey,
+                startOffset = state.startOffset;
 
-            if (startBlock.type == 'paragraph') return;
-
-            e.preventDefault();
-            var transform = state.transform();
-
-            if (startBlock.type == 'block-quote') {
-                return;
-            }
-
-            // If the previous block is a paragraph and empty delete it
-            if (document.getPreviousBlock(startKey).type == 'paragraph' && startBlock.type === 'heading-two' && document.getPreviousBlock(startKey).isEmpty == true) {
-                transform.deleteBackward(1).setBlock(startBlock.type);
-            } else {
-                return;
-            }
-
-            state = transform.apply();
-            return state;
+            return;
         }, _this.onEnter = function (e, state) {
             // console.log('onenter')
             if (state.isExpanded) return;
@@ -335,18 +263,9 @@ var MainEditor = function (_Component) {
                 startKey = state.startKey,
                 document = state.document;
 
-            if (endOffset != startBlock.length && startBlock.type != 'paragraph' && startBlock.type != 'list-item') {
-                // If at the start of the selection, add a paragraph block and move the cursor to the current block.
-                if (endOffset === 0) {
-                    e.preventDefault();
-                    return state.transform().insertBlock('paragraph').collapseToStartOf(document.getClosestBlock(startKey)).apply();
-                } else {
-                    return state.transform().splitBlock().setBlock('paragraph').apply();
-                }
-            }
-
             // return to default Enter behavior
-            if (startBlock.type != 'heading-one' && startBlock.type != 'heading-two' && startBlock.type != 'heading-three' && startBlock.type != 'heading-four' && startBlock.type != 'heading-five' && startBlock.type != 'heading-six' && startBlock.type != 'block-quote') {
+
+            if (startBlock.type === 'paragraph') {
                 return;
             }
 
@@ -419,12 +338,12 @@ var MainEditor = function (_Component) {
         */
 
         value: function render() {
-            return _react2.default.createElement(EditorWrapper, {
+            return _react2.default.createElement('div', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 325
+                    lineNumber: 262
                 }
-            }, _react2.default.createElement(_slate.Editor, {
+            }, _react2.default.createElement(StyledEditor, {
                 plugins: plugins,
                 schema: schema,
                 state: this.state.state,
@@ -432,7 +351,12 @@ var MainEditor = function (_Component) {
                 onKeyDown: this.onKeyDown,
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 326
+                    lineNumber: 263
+                }
+            }), _react2.default.createElement(_Image2.default, {
+                __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 270
                 }
             }));
         }

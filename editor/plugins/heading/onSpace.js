@@ -1,6 +1,6 @@
 import { getType } from '../utils'
 
-const onSpace = (e, state, data, opts) => {
+export const onSpace = (e, state, data, opts) => {
     if (state.isExpanded) return
 
     const {
@@ -8,21 +8,15 @@ const onSpace = (e, state, data, opts) => {
         startOffset
     } = state
 
-    if (getType(startBlock, startOffset) !== opts.typeItem) return
-
+    const type = getType(startBlock, startOffset)
+    if (!opts.types.includes(type)) return
+    
     e.preventDefault()
 
-    const transform = state
+    return state
         .transform()
-        .setBlock('list-item')
-        .wrapBlock('bulleted-list')
-
-    state = transform
+        .setBlock(type)
         .extendToStartOf(startBlock)
         .delete()
         .apply()
-
-    return state
 }
-
-export default onSpace

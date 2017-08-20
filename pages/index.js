@@ -6,6 +6,12 @@ import rules from '../editor/rules'
 import debug from 'debug'
 
 import PluginList from '../editor/plugins/list'
+import PluginHeading from '../editor/plugins/heading'
+
+import Image from '../components/Image'
+
+import { Box, Guides, Wrapper, WrapperCss } from '../components/Grid'
+
 
 const EditorWrapper = styled.div`
     max-width: 660px;
@@ -55,10 +61,17 @@ const Blockquote = styled.blockquote`
     margin: 2em 0;
 `
 
-const plugin = PluginList()
+const pluginList = PluginList()
+const pluginHeading = PluginHeading()
 const plugins = [
-    plugin
+    pluginList,
+    pluginHeading
 ]
+
+const StyledEditor = styled(Editor)`
+    ${WrapperCss}
+`
+
 /**
  * Define a schema.
  *
@@ -68,19 +81,10 @@ const plugins = [
 const schema = {
     nodes: {
         'block-quote': props => <Blockquote>{props.children}</Blockquote>,
-        'heading-one': props => <H1>{props.children}</H1>,
-        'heading-two': props => 
-            <div data-key={props.attributes['data-key']}>
-                <H2>{props.children}</H2>
-            </div>,
-        'heading-three': props => <h3>{props.children}</h3>,
-        'heading-four': props => <h4>{props.children}</h4>,
-        'heading-five': props => <h5>{props.children}</h5>,
-        'heading-six': props => <h6>{props.children}</h6>,
         'paragraph': props =>
-            <div data-key={props.attributes['data-key']}>
+            <Box fluid={[8, 8, 8, 8]} translate={[3, 3, 3, 3]}>
                 <Paragraph>{props.children}</Paragraph>
-            </div>
+            </Box>
     },
     rules,
     marks: {
@@ -189,28 +193,7 @@ class MainEditor extends Component {
      */
 
     onSpace = (e, state) => {
-        if (state.isExpanded) return
-        const { startBlock, startOffset } = state
-        const chars = startBlock.text.slice(0, startOffset).replace(/\s*/g, '')
-        const type = this.getType(chars)
-
-        if (!type) return
-        
-        // As long as only one Heading at the top is allowed
-        if (type == 'heading-one') return
-
-        e.preventDefault()
-
-        const transform = state
-            .transform()
-            .setBlock(type)
-
-        state = transform
-            .extendToStartOf(startBlock)
-            .delete()
-            .apply()
-
-        return state
+        return
     }
 
     /**
@@ -227,30 +210,8 @@ class MainEditor extends Component {
         if (state.startOffset != 0) return
         const { startBlock, document, startKey, startOffset } = state
 
-        if (startBlock.type == 'paragraph') return
-        
-        e.preventDefault()
-        const transform = state
-            .transform()
 
-
-        if (startBlock.type == 'block-quote') {
-            return
-        }
-       
-        // If the previous block is a paragraph and empty delete it
-        if (document.getPreviousBlock(startKey).type == 'paragraph' &&
-            startBlock.type === 'heading-two' &&
-            document.getPreviousBlock(startKey).isEmpty == true) {
-            transform
-                .deleteBackward(1)
-                .setBlock(startBlock.type)
-        } else {
-            return
-        }
-
-        state = transform.apply()
-        return state
+        return
     }
 
     /**
@@ -267,33 +228,9 @@ class MainEditor extends Component {
         if (state.isExpanded) return
         const { startBlock, startOffset, endOffset, blocks, startKey, document } = state
     
-        if (endOffset != startBlock.length && startBlock.type != 'paragraph' && startBlock.type != 'list-item') {
-            // If at the start of the selection, add a paragraph block and move the cursor to the current block.
-            if (endOffset === 0) {
-                e.preventDefault()
-                return state.transform()
-                    .insertBlock('paragraph')
-                    .collapseToStartOf(document.getClosestBlock(startKey))
-                    .apply()
-            } else {
-                return state
-                    .transform()
-                    .splitBlock()
-                    .setBlock('paragraph')
-                    .apply()
-            }
-        }
 
         // return to default Enter behavior
-        if (
-            startBlock.type != 'heading-one' &&
-            startBlock.type != 'heading-two' &&
-            startBlock.type != 'heading-three' &&
-            startBlock.type != 'heading-four' &&
-            startBlock.type != 'heading-five' &&
-            startBlock.type != 'heading-six' &&
-            startBlock.type != 'block-quote'
-        ) {
+        if ( startBlock.type === 'paragraph' ) {
             return
         } 
 
@@ -322,15 +259,16 @@ class MainEditor extends Component {
 
     render() {
         return (
-            <EditorWrapper>
-                <Editor
+            <div>
+                <StyledEditor
                     plugins={plugins}
                     schema={schema}
                     state={this.state.state}
                     onChange={this.onChange}
                     onKeyDown={this.onKeyDown}
                 />
-            </EditorWrapper>
+                <Image></Image>
+            </div>
         )
     }
 }
