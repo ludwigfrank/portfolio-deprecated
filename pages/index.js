@@ -172,12 +172,10 @@ class MainEditor extends Component {
      */
 
     onKeyDown = (e, data, state) => {
-        // console.log(state.blocks.first().text)
         switch (data.key) {
             case 'space': return this.onSpace(e, state)
             case 'backspace': return this.onBackspace(e, state)
             case 'enter': return this.onEnter(e, state)
-            // case '2': return this.onAt(e, state, data.isShift)
         }
     }
 
@@ -197,7 +195,6 @@ class MainEditor extends Component {
         const type = this.getType(chars)
 
         if (!type) return
-        if (type == 'list-item' && startBlock.type == 'list-item') return
         
         // As long as only one Heading at the top is allowed
         if (type == 'heading-one') return
@@ -207,8 +204,6 @@ class MainEditor extends Component {
         const transform = state
             .transform()
             .setBlock(type)
-
-        if (type == 'list-item') transform.wrapBlock('bulleted-list')
 
         state = transform
             .extendToStartOf(startBlock)

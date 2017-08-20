@@ -57,27 +57,27 @@ var _jsxFileName = '/Users/ludwigfrank/Documents/Development/Apps/portfolio/page
 
 var EditorWrapper = _styledComponents2.default.div.withConfig({
     displayName: 'pages__EditorWrapper',
-    componentId: 'vukqem-0'
+    componentId: 'pvbqv7-0'
 })(['max-width:660px;margin:0 auto;padding:0 24px;']);
 
 var H1 = _styledComponents2.default.h1.withConfig({
     displayName: 'pages__H1',
-    componentId: 'vukqem-1'
+    componentId: 'pvbqv7-1'
 })(['font-family:KievitSlabPro;font-size:2.6em;color:#121023;letter-spacing:0;line-height:28px;font-weight:normal;margin-bottom:1.5em;margin-top:4em;']);
 
 var H2 = _styledComponents2.default.h2.withConfig({
     displayName: 'pages__H2',
-    componentId: 'vukqem-2'
+    componentId: 'pvbqv7-2'
 })(['font-family:KievitSlabPro;font-size:2.2em;color:#121023;letter-spacing:0;line-height:28px;font-weight:normal;margin-bottom:0.8em;margin-top:1.5em;']);
 
 var Paragraph = _styledComponents2.default.span.withConfig({
     displayName: 'pages__Paragraph',
-    componentId: 'vukqem-3'
+    componentId: 'pvbqv7-3'
 })(['font-family:Maison Neue;font-size:1.12em;color:#1B2733;letter-spacing:0;line-height:1.9em;']);
 
 var Blockquote = _styledComponents2.default.blockquote.withConfig({
     displayName: 'pages__Blockquote',
-    componentId: 'vukqem-4'
+    componentId: 'pvbqv7-4'
 })(['font-family:KievitSlabPro-LightItalic;font-size:1.2em;font-style:italic;color:#1B2733;letter-spacing:0.5px;line-height:1.9em;border-left:4px solid #E6E8EB;padding:0.5em 1.5em;margin:2em 0;']);
 
 var plugin = (0, _list2.default)();
@@ -269,7 +269,6 @@ var MainEditor = function (_Component) {
         }, _this.onChange = function (state) {
             _this.setState({ state: state });
         }, _this.onKeyDown = function (e, data, state) {
-            // console.log(state.blocks.first().text)
             switch (data.key) {
                 case 'space':
                     return _this.onSpace(e, state);
@@ -277,7 +276,6 @@ var MainEditor = function (_Component) {
                     return _this.onBackspace(e, state);
                 case 'enter':
                     return _this.onEnter(e, state);
-                // case '2': return this.onAt(e, state, data.isShift)
             }
         }, _this.onSpace = function (e, state) {
             if (state.isExpanded) return;
@@ -289,7 +287,6 @@ var MainEditor = function (_Component) {
             var type = _this.getType(chars);
 
             if (!type) return;
-            if (type == 'list-item' && startBlock.type == 'list-item') return;
 
             // As long as only one Heading at the top is allowed
             if (type == 'heading-one') return;
@@ -297,8 +294,6 @@ var MainEditor = function (_Component) {
             e.preventDefault();
 
             var transform = state.transform().setBlock(type);
-
-            if (type == 'list-item') transform.wrapBlock('bulleted-list');
 
             state = transform.extendToStartOf(startBlock).delete().apply();
 
@@ -427,7 +422,7 @@ var MainEditor = function (_Component) {
             return _react2.default.createElement(EditorWrapper, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 330
+                    lineNumber: 325
                 }
             }, _react2.default.createElement(_slate.Editor, {
                 plugins: plugins,
@@ -437,7 +432,7 @@ var MainEditor = function (_Component) {
                 onKeyDown: this.onKeyDown,
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 331
+                    lineNumber: 326
                 }
             }));
         }
