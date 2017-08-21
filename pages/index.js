@@ -47,6 +47,7 @@ const Paragraph = styled.span`
     color: #1B2733;
     letter-spacing: 0;
     line-height: 1.9em;
+    grid-column: 3 / span 8;
 `
 
 const Blockquote = styled.blockquote`
@@ -72,6 +73,8 @@ const StyledEditor = styled(Editor)`
     ${WrapperCss}
 `
 
+
+
 /**
  * Define a schema.
  *
@@ -82,9 +85,7 @@ const schema = {
     nodes: {
         'block-quote': props => <Blockquote>{props.children}</Blockquote>,
         'paragraph': props =>
-            <Box fluid={[8, 8, 8, 8]} translate={[3, 3, 3, 3]}>
-                <Paragraph>{props.children}</Paragraph>
-            </Box>
+            <Paragraph>{props.children}</Paragraph>
     },
     rules,
     marks: {
@@ -242,12 +243,6 @@ class MainEditor extends Component {
             .apply()
     }
 
-    onAt = (e, state, isShift) => {
-        if (isShift) {
-            console.log('DO IT')
-        }
-        return
-    }
 
 
      /**

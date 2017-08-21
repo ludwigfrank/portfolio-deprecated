@@ -1,7 +1,7 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet, injectGlobal } from 'styled-components'
 import { Box, Guides, Wrapper } from '../components/Grid'
-
+import { extractCritical } from 'emotion/server'
 
 export default class MyDocument extends Document {
   render () {
