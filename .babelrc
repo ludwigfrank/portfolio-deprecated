@@ -3,6 +3,13 @@
     "next/babel"
   ],
   "plugins": [
-    ["emotion/babel", { "inline": true }]
+    ["emotion/babel", { "inline": true }],
+    ["module-resolver", {
+      "root": ["./"],
+      "alias": {
+        "components": "./components",
+        "container": "./container"
+      }
+    }]
   ]
 }

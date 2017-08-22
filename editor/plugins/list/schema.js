@@ -1,4 +1,5 @@
 import styled from 'emotion/react'
+import { UnorderedList } from 'components/text/List'
 
 const ListItem = styled.li`
     font-family: Maison Neue;
@@ -7,12 +8,6 @@ const ListItem = styled.li`
     letter-spacing: 0;
     line-height: 1.9em; 
     padding-left: 0.5em;
-`
-
-const UnorderedList = styled.ul`
-    margin-left: 1.08em;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
 `
 
 export const schema = {

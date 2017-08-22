@@ -12,12 +12,6 @@ export const onBackspace = (e, state, data, opts) => {
     if (!opts.types.includes(startBlock.type)) return
 
     // If the previous block is a paragraph and empty delete it
-    if (startBlock.isEmpty) {
-        return state
-            .transform()
-            .setBlock('paragraph')
-            .apply()
-    }
     if (document.getPreviousBlock(startKey).type == 'paragraph' &&
         startBlock.type === 'heading-two' &&
         document.getPreviousBlock(startKey).isEmpty == true

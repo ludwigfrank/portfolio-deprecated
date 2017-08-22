@@ -8,6 +8,8 @@ import debug from 'debug'
 
 import PluginList from '../editor/plugins/list'
 import PluginHeading from '../editor/plugins/heading'
+import PluginPortal from '../editor/plugins/portal'
+
 
 import Image from '../components/Image'
 
@@ -42,15 +44,17 @@ const Blockquote = styled.blockquote`
 
 const pluginList = PluginList()
 const pluginHeading = PluginHeading()
+const pluginPortal = PluginPortal()
+
 const plugins = [
     pluginList,
-    pluginHeading
+    pluginHeading,
+    pluginPortal
 ]
 
 const StyledEditor = styled(Editor)`
     ${WrapperCss}
 `
-
 
 
 /**
@@ -64,7 +68,7 @@ const schema = {
         'block-quote': props => <Blockquote>{props.children}</Blockquote>,
         'paragraph': props =>
             <Wrapper>
-                <Box fluid={[10, 6, 4, 12]} center>
+                <Box fluid={[8, 8, 10, 10]} center>
                     <Paragraph>{props.children}</Paragraph>
                 </Box>
             </Wrapper>
