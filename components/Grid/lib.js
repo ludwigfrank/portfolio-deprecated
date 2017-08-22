@@ -69,6 +69,5 @@ export const flui = (arr, props) => {
         }
     })
 
-    console.log(val)
     return val
 }

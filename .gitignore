@@ -2,3 +2,4 @@ node_modules
 static/fonts
 static/images
 .next
+package-lock.json
