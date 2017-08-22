@@ -47,30 +47,16 @@ export const flui = (arr, props) => {
 
     let val = `
         grid-column: span ${arr[0]};
-        ${props.translate && `
-            grid-column: ${props.translate[0]} / span ${arr[0]};
-        `}
-        ${props.grid && `
-            display: grid;
-            grid-template-columns: repeat(${arr[0]}, 1fr);
-            grid-column-gap: ${config.def.gutter}px;
-        `}
     `
     
     Object.keys(config.breakpoints).map((value, index) => {
-        if (typeof arr[index + 1] != 'undefined') {
+        if (typeof arr[index + 1] == 'number') {
             val += `
                 @media (max-width: ${config.breakpoints[value].width / 16}em) {
                     ${(props.translate) ? `
                         grid-column: ${props.translate[index + 1]} / span ${arr[index + 1]};
-                        background: red;
                     ` : `
                         grid-column: span ${arr[index + 1]};
-                    `}
-                    ${props.grid && `
-                        display: grid;
-                        grid-template-columns: repeat(${arr[index + 1]}, 1fr);
-                        grid-column-gap: ${config.breakpoints[value].gutter / 16}em;
                     `}
                 }
             `
@@ -82,5 +68,7 @@ export const flui = (arr, props) => {
             `
         }
     })
+
+    console.log(val)
     return val
 }

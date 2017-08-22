@@ -47,7 +47,6 @@ const Paragraph = styled.span`
     color: #1B2733;
     letter-spacing: 0;
     line-height: 1.9em;
-    grid-column: 3 / span 8;
 `
 
 const Blockquote = styled.blockquote`
@@ -85,7 +84,11 @@ const schema = {
     nodes: {
         'block-quote': props => <Blockquote>{props.children}</Blockquote>,
         'paragraph': props =>
-            <Paragraph>{props.children}</Paragraph>
+            <Wrapper>
+                <Box fluid={[10, 6, 4, 12]}>
+                    <Paragraph>{props.children}</Paragraph>
+                </Box>
+            </Wrapper>
     },
     rules,
     marks: {
@@ -255,14 +258,14 @@ class MainEditor extends Component {
     render() {
         return (
             <div>
-                <StyledEditor
+                <Editor
                     plugins={plugins}
                     schema={schema}
                     state={this.state.state}
                     onChange={this.onChange}
                     onKeyDown={this.onKeyDown}
                 />
-                <Image></Image>
+                <Guides></Guides>
             </div>
         )
     }
