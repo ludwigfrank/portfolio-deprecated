@@ -1,5 +1,6 @@
 import { KievitLight, KievitLightItalic } from './fonts'
 import styled from 'emotion/react'
+import { Wrapper, Box } from './../Grid'
 
 export const H1 = styled.h1`
     font-family: KievitSlabPro;
@@ -33,3 +34,13 @@ export const H3 = styled.h3`
     margin-bottom: 0.5em;
     margin-top: 1em;
 `
+
+export const Heading = (props) => {
+    return (
+        <Wrapper>
+            <Box>
+                <H1>{props.children}</H1>
+            </Box>
+        </Wrapper>
+    )
+}

@@ -4,11 +4,11 @@ import { H1, H2, H3 } from '../../../components/Text/Heading'
 export const schema = {
     nodes: {
         'heading-one': props => 
-            <Wrapper>
+            {<Wrapper>
                 <Box fluid={[12, 12, 12, 12]} data-key={props.attributes['data-key']}>
                     <H1>{props.children}</H1>
                 </Box>
-            </Wrapper>,
+            </Wrapper>},
         'heading-two': props => 
             <Wrapper>
                 <Box fluid={[12, 12, 12, 12]} data-key={props.attributes['data-key']}>
