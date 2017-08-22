@@ -1,10 +1,4 @@
-import { css, injectGlobal } from 'styled-components'
-
-injectGlobal`
-    body {
-        margin: 0;
-    }
-`
+import { css } from 'emotion'
 
 export const config = {
     columns: 12,
@@ -43,31 +37,22 @@ export const media = Object.keys(config.breakpoints).reduce((accumulator, label)
    * @return {String}
    */
 
-export const flui = (arr, props) => {
+export const fluid = (props) => Object.keys(config.breakpoints).reduce((accumulator, label, index) => {
+    const emSize = config.breakpoints[label].width / 16
+    let gridColumn
 
-    let val = `
-        grid-column: span ${arr[0]};
-    `
-    
-    Object.keys(config.breakpoints).map((value, index) => {
-        if (typeof arr[index + 1] == 'number') {
-            val += `
-                @media (max-width: ${config.breakpoints[value].width / 16}em) {
-                    ${(props.translate) ? `
-                        grid-column: ${props.translate[index + 1]} / span ${arr[index + 1]};
-                    ` : `
-                        grid-column: span ${arr[index + 1]};
-                    `}
-                }
-            `
-        } else {
-            val += `
-                @media (max-width: ${config.breakpoints[value].width / 16}em) {
-                    grid-column: span ${config.columns};
-                }
-            `
-        }
-    })
+    if (typeof props.fluid[index + 1] == 'number') {
+        gridColumn = `span ${props.fluid[index + 1]}`
+    } else {
+        gridColumn = `span ${config.columns}`
+    }
 
-    return val
-}
+    accumulator[`@media (max-width: ${emSize}em)`] = {
+        gridColumn
+    }
+    return accumulator
+}, 
+    {
+        gridColumn: `span ${props.fluid[0]}`
+    }
+)

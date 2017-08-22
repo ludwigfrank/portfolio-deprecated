@@ -10,7 +10,7 @@ export const onEnter = (e, state, data, opts) => {
     } = state
 
     if (!opts.types.includes(startBlock.type)) return
-
+    
     if (endOffset === 0) {
         e.preventDefault()
         return state.transform()
