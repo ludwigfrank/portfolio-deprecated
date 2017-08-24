@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { string, object, func, number } from 'prop-types'
-import styled from 'styled-components'
+import styled from 'emotion/react'
 
 // TODO: add new animation with shutter and scale
 const absolutePositioning = props => props.absolutePositioning && 'position: absolute'

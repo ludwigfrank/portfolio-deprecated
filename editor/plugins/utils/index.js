@@ -1,6 +1,5 @@
 export { getType } from './types'
 
-
 /**
  * Return the current list item, from current selection or from a node.
  *

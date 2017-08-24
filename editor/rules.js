@@ -1,5 +1,5 @@
 import { Block } from 'slate'
-import styled from 'styled-components'
+import styled from 'emotion/react'
 
 const Paragraph = styled.span`
     font-family: Maison Neue;

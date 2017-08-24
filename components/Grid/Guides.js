@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
-import { Wrapper } from './Wrapper'
+import styled from 'emotion/react'
+import { css } from 'emotion'
+import { WrapperCss } from './Wrapper'
 import { config } from './lib'
 
 const GuideColumn = styled.div`
@@ -13,17 +14,19 @@ const GuideColumn = styled.div`
 `
 
 const GuideRow = styled.div`
+    composes:
+    ${props => props.background && css`background: rgba(200,0,255,0.05);`}
+    ${props => props.border && css`border-bottom: 0.5px solid rgba(200,0,255,0.08);`};
     opacity: 1;
     width: 100%;
     box-sizing: border-box;
     height: ${props => props.height}em;
     margin: 0 0 ${props => props.height}em 0;
     position: relative;
-    ${props => props.background && 'background: rgba(200,0,255,0.05);'}
-    ${props => props.border && 'border-bottom: 0.5px solid rgba(200,0,255,0.08);'}
 `
 
-const Fixed = styled(Wrapper)`
+const Fixed = styled.div`
+    composes: ${WrapperCss};
     position: fixed;
     height: 100vh;
     left: 0;

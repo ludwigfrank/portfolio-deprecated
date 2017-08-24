@@ -1,18 +1,13 @@
-import { css, injectGlobal } from 'styled-components'
-
-injectGlobal`
-    body {
-        margin: 0;
-    }
-`
+import { css } from 'emotion'
 
 export const config = {
     columns: 12,
     max_width: '1152px',
     breakpoints: {
+        def: { width: 1260, gutter: 40, max_width: '85%',  color: '#8F75D5' },
         lg: { width: 1260, gutter: 32, max_width: '85%',  color: '#FD7988' },
         md: { width: 960,  gutter: 28, max_width: '85%',  color: '#F6AB99' },
-        sm: { width: 720,  gutter: 16, max_width: '100%', color: '#F1DDAE' },
+        sm: { width: 720,  gutter: 16, max_width: '100%', color: '#F1DDAE' }
         // xs: { width: 376,  gutter: 16 },
     },
     def: { width: 1260, gutter: 40, max_width: '85%',  color: '#8F75D5' }
@@ -43,31 +38,30 @@ export const media = Object.keys(config.breakpoints).reduce((accumulator, label)
    * @return {String}
    */
 
-export const flui = (arr, props) => {
+export const fluid = (props) => Object.keys(config.breakpoints).reduce((accumulator, label, index) => {
+    const emSize = config.breakpoints[label].width / 16
+    let gridColumn
+    let gridTranslate = 1
 
-    let val = `
-        grid-column: span ${arr[0]};
-    `
-    
-    Object.keys(config.breakpoints).map((value, index) => {
-        if (typeof arr[index + 1] == 'number') {
-            val += `
-                @media (max-width: ${config.breakpoints[value].width / 16}em) {
-                    ${(props.translate) ? `
-                        grid-column: ${props.translate[index + 1]} / span ${arr[index + 1]};
-                    ` : `
-                        grid-column: span ${arr[index + 1]};
-                    `}
-                }
-            `
-        } else {
-            val += `
-                @media (max-width: ${config.breakpoints[value].width / 16}em) {
-                    grid-column: span ${config.columns};
-                }
-            `
-        }
-    })
+    if (props.center) {
+        gridTranslate = Math.ceil((config.columns - props.fluid[index]) / 2) + 1
+    }
 
-    return val
-}
+    // Default value. That is all sizes bigger than 1260px.
+    if (index === 0) return {
+         gridColumn: `${gridTranslate} / span ${props.fluid[0]}`
+    }
+
+    if (typeof props.fluid[index] == 'number') {
+        gridColumn = `${gridTranslate} / span ${props.fluid[index]}`
+    } else {
+        gridColumn = `${gridTranslate} / span ${config.columns}`
+    }
+
+    accumulator[`@media (max-width: ${emSize}em)`] = {
+        gridColumn
+    }
+    return accumulator
+}, 
+    {}
+)
