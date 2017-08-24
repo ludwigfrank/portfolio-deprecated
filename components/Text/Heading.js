@@ -1,5 +1,6 @@
 import { KievitLight, KievitLightItalic } from './fonts'
 import styled from 'emotion/react'
+import { withTheme } from 'theming'
 import { Wrapper, Box } from './../Grid'
 
 export const H1 = styled.h1`
@@ -13,16 +14,16 @@ export const H1 = styled.h1`
     margin-top: 4em;
 `
 
-export const H2 = styled.h2`
-    font-family: KievitSlabPro;
+export const H2 = withTheme(styled('h2')`
+    color: ${p => p.theme.color.neutral[1]};
+    font-family: ${p => p.theme.font.secondary};
     font-size: 2.2em;
-    color: #121023;
+    font-weight: 100;
     letter-spacing: 0;
     line-height: 28px;
-    font-weight: normal;
     margin-bottom: 0.8em;
     margin-top: 1.5em;
-`
+`)
 
 export const H3 = styled.h3`
     font-family: KievitSlabPro;
@@ -35,6 +36,13 @@ export const H3 = styled.h3`
     margin-top: 1em;
 `
 
+export const Paragraph = withTheme(styled('span')`
+    color: ${p => p.theme.color.neutral[3]};
+    font-family: ${p => p.theme.font.primary};
+    letter-spacing: 0;
+    font-weight: 400;
+    line-height: 1.9em;
+`)
 
 export const Heading = (props) => {
     return (

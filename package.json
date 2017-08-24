@@ -5,12 +5,13 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -s ./static -p 6006",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "babel-plugin-styled-components": "^1.1.5",
+    "babel-plugin-emotion": "^7.1.0",
     "emotion": "^7.2.0",
+    "emotion-server": "^7.2.0",
     "gsap": "^1.20.2",
     "next": "^3.0.3",
     "now": "^7.3.0",
@@ -18,7 +19,7 @@
     "react-dom": "^15.6.1",
     "react-emotion": "^7.2.0",
     "slate": "^0.21.2",
-    "styled-components": "^2.1.0",
+    "theming": "^1.1.0",
     "webpack-bundle-analyzer": "^2.9.0"
   },
   "license": "ISC",

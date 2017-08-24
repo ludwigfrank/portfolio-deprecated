@@ -2,9 +2,13 @@ import { Component } from 'react'
 import styled from 'emotion/react'
 import { injectGlobal } from 'emotion'
 import { Editor, Raw, Block, setKeyGenerator, Plain } from 'slate'
+import { ThemeProvider } from 'theming'
+import { DEFAULT_THEME } from '../theme' 
+import { Paragraph } from 'components/text'
 import initialState from '../static/state.json'
 import rules from '../editor/rules'
 import debug from 'debug'
+import SuggestionPortal from 'container/SuggestionPortal'
 
 import PluginList from '../editor/plugins/list'
 import PluginHeading from '../editor/plugins/heading'
@@ -22,13 +26,6 @@ const EditorWrapper = styled.div`
     padding: 0 24px;
 `
 
-const Paragraph = styled.span`
-    font-family: Maison Neue;
-    font-size: 1.12em;
-    color: #1B2733;
-    letter-spacing: 0;
-    line-height: 1.9em;
-`
 
 const Blockquote = styled.blockquote`
     font-family: KievitSlabPro-LightItalic;
@@ -44,12 +41,10 @@ const Blockquote = styled.blockquote`
 
 const pluginList = PluginList()
 const pluginHeading = PluginHeading()
-const pluginPortal = PluginPortal()
 
 const plugins = [
     pluginList,
     pluginHeading,
-    pluginPortal
 ]
 
 const StyledEditor = styled(Editor)`
@@ -215,13 +210,8 @@ class MainEditor extends Component {
         if (state.isExpanded) return
         const { startBlock, startOffset, endOffset, blocks, startKey, document } = state
     
-
-        // return to default Enter behavior
-        if ( startBlock.type === 'paragraph' ) {
-            return
-        } 
-
         console.log('default')
+        return
     }
 
 
@@ -235,16 +225,18 @@ class MainEditor extends Component {
 
     render() {
         return (
-            <div>
-                <Editor
-                    plugins={plugins}
-                    schema={schema}
-                    state={this.state.state}
-                    onChange={this.onChange}
-                    onKeyDown={this.onKeyDown}
-                />
-                <Guides></Guides>
-            </div>
+            <ThemeProvider theme={DEFAULT_THEME}>
+                <div>
+                    <SuggestionPortal />
+                    <Editor
+                        plugins={plugins}
+                        schema={schema}
+                        state={this.state.state}
+                        onChange={this.onChange}
+                        onKeyDown={this.onKeyDown}
+                    />
+                </div>
+            </ThemeProvider>
         )
     }
 }
